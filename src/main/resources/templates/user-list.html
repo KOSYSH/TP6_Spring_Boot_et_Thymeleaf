@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des utilisateurs</title>
+</head>
+<body>
+    <h1>Utilisateurs</h1>
+    <a th:href="@{/adduser}">Ajouter un utilisateur</a>
+
+    <table border="1">
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <a th:href="@{/edit/{id}(id=${user.id})}">Modifier</a>
+                <form th:action="@{/delete/{id}(id=${user.id})}" method="post"
+                      onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
